@@ -1,0 +1,15 @@
+{
+  "name": "react-async-button",
+  "version": "0.0.0",
+  "description": "React button component for handling async actions ",
+  "main": "\"\"",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "async-button"
+  ],
+  "author": "selvagsz",
+  "license": "MIT"
+}
