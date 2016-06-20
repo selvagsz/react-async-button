@@ -1,9 +1,20 @@
+import React, { PropTypes } from 'react';
+
 export default React.createClass({
+  propTypes: {
+    disabled: PropTypes.bool,
+    text: PropTypes.string,
+    pendingText: PropTypes.string,
+    fulFilledText: PropTypes.string,
+    rejectedText: PropTypes.string,
+    onClick: PropTypes.func,
+  },
+
   getInitialState() {
     return {
       pending: false,
       promiseFulfilled: false,
-      promiseRejected: false
+      promiseRejected: false,
     };
   },
 
@@ -11,28 +22,28 @@ export default React.createClass({
     this.setState({
       pending: false,
       promiseFulfilled: false,
-      promiseRejected: false
+      promiseRejected: false,
     });
   },
 
-  handleClick() {
+  handleClick(...args) {
     this.setState({
-      pending: true
+      pending: true,
     });
 
-    let promise = this.props.onClick(...arguments);
+    const promise = this.props.onClick(args);
     if (promise && promise.then) {
       promise.then(() => {
         this.setState({
           pending: false,
           promiseRejected: false,
-          promiseFulfilled: true
+          promiseFulfilled: true,
         });
       }).catch((error) => {
         this.setState({
           pending: false,
           promiseRejected: true,
-          promiseFulfilled: false
+          promiseFulfilled: false,
         });
         throw error;
       });
@@ -42,10 +53,10 @@ export default React.createClass({
   },
 
   render() {
-    let isPending = this.state.pending;
-    let isFulfilled = this.state.promiseFulfilled;
-    let isRejected = this.state.promiseRejected;
-    let isDisabled = this.props.disabled || isPending;
+    const isPending = this.state.pending;
+    const isFulfilled = this.state.promiseFulfilled;
+    const isRejected = this.state.promiseRejected;
+    const isDisabled = this.props.disabled || isPending;
     let buttonText;
 
     if (isPending) {
@@ -57,10 +68,10 @@ export default React.createClass({
     }
     buttonText = buttonText || this.props.text;
 
-		return (
+    return (
       <button {...this.props} disabled={isDisabled} onClick={this.handleClick}>
         {buttonText}
       </button>
 		);
-	}
+  },
 });
