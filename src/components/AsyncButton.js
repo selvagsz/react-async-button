@@ -2,7 +2,7 @@ export default React.createClass({
   getInitialState() {
     return {
       pending: false,
-      promiseFulFilled: false,
+      promiseFulfilled: false,
       promiseRejected: false
     };
   },
