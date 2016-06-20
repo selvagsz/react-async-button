@@ -1,22 +1,14 @@
 import React, { PropTypes } from 'react';
 
-export default React.createClass({
-  propTypes: {
-    disabled: PropTypes.bool,
-    text: PropTypes.string,
-    pendingText: PropTypes.string,
-    fulFilledText: PropTypes.string,
-    rejectedText: PropTypes.string,
-    onClick: PropTypes.func,
-  },
-
-  getInitialState() {
-    return {
+export default class AsyncButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       pending: false,
       promiseFulfilled: false,
       promiseRejected: false,
     };
-  },
+  }
 
   resetState() {
     this.setState({
@@ -24,7 +16,7 @@ export default React.createClass({
       promiseFulfilled: false,
       promiseRejected: false,
     });
-  },
+  }
 
   handleClick(...args) {
     this.setState({
@@ -50,7 +42,7 @@ export default React.createClass({
     } else {
       this.resetState();
     }
-  },
+  }
 
   render() {
     const isPending = this.state.pending;
@@ -69,9 +61,18 @@ export default React.createClass({
     buttonText = buttonText || this.props.text;
 
     return (
-      <button {...this.props} disabled={isDisabled} onClick={this.handleClick}>
+      <button {...this.props} disabled={isDisabled} onClick={() => this.handleClick()}>
         {buttonText}
       </button>
 		);
-  },
-});
+  }
+}
+
+AsyncButton.propTypes = {
+  disabled: PropTypes.bool,
+  text: PropTypes.string,
+  pendingText: PropTypes.string,
+  fulFilledText: PropTypes.string,
+  rejectedText: PropTypes.string,
+  onClick: PropTypes.func,
+};
