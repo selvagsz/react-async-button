@@ -47,7 +47,17 @@ export default class AsyncButton extends React.Component {
 
   render() {
     const { isPending, isFulfilled, isRejected } = this.state;
-    const { children, className, loadingClass, text, pendingText, fulFilledText, rejectedText } = this.props;
+    const {
+      children,
+      text,
+      pendingText,
+      fulFilledText,
+      rejectedText,
+      className,
+      loadingClass,
+      fulFilledClass,
+      rejectedClass,
+    } = this.props;
     const isDisabled = this.props.disabled || isPending;
     let buttonText;
 
@@ -60,7 +70,9 @@ export default class AsyncButton extends React.Component {
     }
     buttonText = buttonText || text;
     const btnClasses = classNames(className, {
-      [`${loadingClass || 'loading'}`]: isPending,
+      [`${loadingClass || 'AsyncButton--loading'}`]: isPending,
+      [`${fulFilledClass || 'AsyncButton--fulfilled'}`]: isFulfilled,
+      [`${rejectedClass || 'AsyncButton--rejected'}`]: isRejected,
     });
 
     return (
@@ -75,6 +87,8 @@ AsyncButton.propTypes = {
   children: PropTypes.element,
   className: PropTypes.string,
   loadingClass: PropTypes.string,
+  fulFilledClass: PropTypes.string,
+  rejectedClass: PropTypes.string,
   disabled: PropTypes.bool,
   text: PropTypes.string,
   pendingText: PropTypes.string,
