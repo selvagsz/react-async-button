@@ -1,3 +1,6 @@
+# output
+lib/
+
 # dependencies
 /node_modules
 /bower_components

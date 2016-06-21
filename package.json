@@ -2,14 +2,22 @@
   "name": "react-async-button",
   "version": "0.0.0",
   "description": "React button component for handling async actions ",
-  "main": "\"\"",
+  "main": "lib/main.js",
   "scripts": {
+    "clean": "rimraf lib",
+    "build:commonjs": "babel src/ --out-dir lib/ --ignore __tests__,__mocks__",
+    "build": "npm run clean && npm run build:commonjs",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm run build"
   },
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "react",
-    "async-button"
+    "async-button",
+    "react-component"
   ],
   "repository": "https://github.com/selvagsz/react-async-button",
   "bugs": {
@@ -36,6 +44,7 @@
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",
+    "rimraf": "^2.5.2",
     "sinon": "^1.17.4"
   },
   "dependencies": {
