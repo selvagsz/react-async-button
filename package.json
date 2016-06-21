@@ -8,8 +8,8 @@
     "build:commonjs": "babel src/ --out-dir lib/ --ignore __tests__,__mocks__",
     "build": "npm run clean && npm run build:commonjs",
     "lint": "eslint src",
-    "test": "jest",
-    "prepublish": "npm run build"
+    "test": "npm run lint && jest",
+    "prepublish": "npm test && npm run build"
   },
   "files": [
     "lib",
