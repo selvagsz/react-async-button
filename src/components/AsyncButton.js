@@ -5,48 +5,42 @@ export default class AsyncButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPending: false,
-      isFulfilled: false,
-      isRejected: false,
+      asyncState: null,
     };
   }
 
   resetState() {
     this.setState({
-      isPending: false,
-      isFulfilled: false,
-      isRejected: false,
+      asyncState: null,
     });
   }
 
   handleClick(...args) {
-    this.setState({
-      isPending: true,
-    });
-
-    const promise = this.props.onClick(args);
-    if (promise && promise.then) {
-      promise.then(() => {
-        this.setState({
-          isPending: false,
-          isRejected: false,
-          isFulfilled: true,
-        });
-      }).catch((error) => {
-        this.setState({
-          isPending: false,
-          isRejected: true,
-          isFulfilled: false,
-        });
-        throw error;
+    const clickHandler = this.props.onClick;
+    if (typeof clickHandler === 'function') {
+      this.setState({
+        asyncState: 'pending',
       });
-    } else {
-      this.resetState();
+
+      const returnFn = clickHandler(args);
+      if (returnFn && typeof returnFn.then === 'function') {
+        returnFn.then(() => {
+          this.setState({
+            asyncState: 'fulfilled',
+          }).catch((error) => {
+            this.setState({
+              asyncState: 'rejected',
+            });
+            throw error;
+          });
+        });
+      } else {
+        this.resetState();
+      }
     }
   }
 
   render() {
-    const { isPending, isFulfilled, isRejected } = this.state;
     const {
       children,
       text,
@@ -57,8 +51,20 @@ export default class AsyncButton extends React.Component {
       loadingClass,
       fulFilledClass,
       rejectedClass,
+      disabled,
+      ...attributes,
     } = this.props;
-    const isDisabled = this.props.disabled || isPending;
+
+    const { asyncState } = this.state;
+    const isPending = asyncState === 'pending';
+    const isFulfilled = asyncState === 'fulfilled';
+    const isRejected = asyncState === 'rejected';
+    const isDisabled = disabled || isPending;
+    const btnClasses = classNames(className, {
+      [loadingClass]: isPending,
+      [fulFilledClass]: isFulfilled,
+      [rejectedClass]: isRejected,
+    });
     let buttonText;
 
     if (isPending) {
@@ -69,14 +75,9 @@ export default class AsyncButton extends React.Component {
       buttonText = rejectedText;
     }
     buttonText = buttonText || text;
-    const btnClasses = classNames(className, {
-      [`${loadingClass || 'AsyncButton--loading'}`]: isPending,
-      [`${fulFilledClass || 'AsyncButton--fulfilled'}`]: isFulfilled,
-      [`${rejectedClass || 'AsyncButton--rejected'}`]: isRejected,
-    });
 
     return (
-      <button {...this.props} className={btnClasses} disabled={isDisabled} onClick={() => this.handleClick()}>
+      <button {...attributes} className={btnClasses} disabled={isDisabled} onClick={() => this.handleClick()}>
         {children || buttonText}
       </button>
 		);
@@ -95,4 +96,10 @@ AsyncButton.propTypes = {
   fulFilledText: PropTypes.string,
   rejectedText: PropTypes.string,
   onClick: PropTypes.func,
+};
+
+AsyncButton.defaultProps = {
+  loadingClass: 'AsyncButton--loading',
+  fulFilledClass: 'AsyncButton--fulfilled',
+  rejectedClass: 'AsyncButton--rejected',
 };
