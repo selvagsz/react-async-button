@@ -2,6 +2,7 @@
 import React from 'react';
 import AsyncButton from '../AsyncButton.js';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 
 describe('main.js', () => {
   it('Should render `button` tag', () => {
@@ -16,5 +17,15 @@ describe('main.js', () => {
     expect($button.hasClass('btn btn-default')).toBe(true);
     expect($button.prop('disabled')).toBe(true);
     expect($button.text()).toBe('Save');
+  });
+
+  it('Should trigger click handler', () => {
+    const clickHandler = sinon.spy();
+    const wrapper = shallow(
+      <AsyncButton className="btn btn-default" onClick={clickHandler} text="Save" pendingText="Saving..." />
+    );
+    const $button = wrapper.find('button');
+    $button.simulate('click');
+    expect(clickHandler.calledOnce).toBe(true);
   });
 });
