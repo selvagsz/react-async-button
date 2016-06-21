@@ -1,5 +1,8 @@
 # react-async-button
+
 React button component for handling async actions. Inspired from [ember-async-button](https://github.com/DockYard/ember-async-button)
+
+[![Build Status](https://travis-ci.org/selvagsz/react-async-button.svg?branch=master)](https://travis-ci.org/selvagsz/react-async-button)
 
 ## Installation
 
