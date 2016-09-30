@@ -12,8 +12,7 @@
     "prepublish": "npm test && npm run build"
   },
   "files": [
-    "lib",
-    "src"
+    "lib"
   ],
   "keywords": [
     "react",

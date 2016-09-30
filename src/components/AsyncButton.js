@@ -27,12 +27,12 @@ export default class AsyncButton extends React.Component {
         returnFn.then(() => {
           this.setState({
             asyncState: 'fulfilled',
-          }).catch((error) => {
-            this.setState({
-              asyncState: 'rejected',
-            });
-            throw error;
+          })
+        }).catch((error) => {
+          this.setState({
+            asyncState: 'rejected',
           });
+          throw error;
         });
       } else {
         this.resetState();
