@@ -6,8 +6,11 @@
     "node": true
   },
   "rules": {
+    "semi": 0,
     "max-len": 0,
     "react/prefer-es6-class": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "no-nested-ternary": 0,
+    "no-unneeded-ternary": 0
   }
 }
