@@ -77,15 +77,26 @@ export default class AsyncButton extends React.Component {
     buttonText = buttonText || text;
 
     return (
-      <button {...attributes} className={btnClasses} disabled={isDisabled} onClick={() => this.handleClick()}>
-        {children || buttonText}
+      <button
+        {...attributes}
+        className={btnClasses}
+        disabled={isDisabled}
+        onClick={() => this.handleClick()}>
+        {
+          typeof children === 'function' ?
+          children({
+            buttonText,
+            isPending,
+            isFulfilled,
+            isRejected
+          }) : children ? children : buttonText
+        }
       </button>
-		);
+    );
   }
 }
 
 AsyncButton.propTypes = {
-  children: PropTypes.element,
   className: PropTypes.string,
   loadingClass: PropTypes.string,
   fulFilledClass: PropTypes.string,
