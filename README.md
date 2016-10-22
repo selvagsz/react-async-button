@@ -10,9 +10,10 @@ React button component for handling async actions. Inspired from [ember-async-bu
 $ npm install react-async-button --save
 ```
 
-## DEMO
+## DOCS & DEMO
 
-[JS BIN DEMO](https://jsbin.com/hugigok/18/edit?js,output)
+https://selvagsz.github.io/react-async-button/
+
 
 ## Example
 
@@ -33,16 +34,17 @@ export default App extends Component {
   render() {
     return (
       <AsyncButton
-      className="btn"
-      text="Save"
-      pendingText="Saving..."
-      fulFilledText="Saved Successfully!"
-      rejectedText="Failed! Try Again"
-      loadingClass="isSaving"
-      fulFilledClass="btn-primary"
-      rejectedClass="btn-danger"
-      onClick={this.clickHandler}/>
-    );
+        className="btn"
+        text="Save"
+        pendingText="Saving..."
+        fulFilledText="Saved Successfully!"
+        rejectedText="Failed! Try Again"
+        loadingClass="isSaving"
+        fulFilledClass="btn-primary"
+        rejectedClass="btn-danger"
+        onClick={this.clickHandler}
+       />
+    )
   }
 }
 
