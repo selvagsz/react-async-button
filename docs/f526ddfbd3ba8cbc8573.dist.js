@@ -151,7 +151,28 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'demo' },
-	            basicDemoSnippet,
+	            _react2.default.createElement(
+	              _AsyncButton2.default,
+	              {
+	                text: 'Save',
+	                pendingText: 'Saving...',
+	                fulFilledText: 'Saved',
+	                onClick: this.doSomeAsyncStuff },
+	              function (_ref) {
+	                var buttonText = _ref.buttonText;
+	                var isPending = _ref.isPending;
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  isPending && _react2.default.createElement(Spinner, null),
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    buttonText
+	                  )
+	                );
+	              }
+	            ),
 	            _react2.default.createElement(
 	              _reactHighlight2.default,
 	              { className: 'jsx' },
@@ -21705,7 +21726,8 @@
 	          disabled: isDisabled,
 	          onClick: function onClick() {
 	            return _this3.handleClick();
-	          } }),
+	          }
+	        }),
 	        typeof children === 'function' ? children({
 	          buttonText: buttonText,
 	          isPending: isPending,
@@ -21723,6 +21745,7 @@
 
 
 	AsyncButton.propTypes = {
+	  children: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.element]),
 	  className: _react.PropTypes.string,
 	  loadingClass: _react.PropTypes.string,
 	  fulFilledClass: _react.PropTypes.string,
@@ -32782,7 +32805,7 @@
 
 
 	// module
-	exports.push([module.id, "// CSS for DEMO page\n\n*, *::before, *::after {\n  box-sizing: border-box;\n}\n\nhtml, body {\n  font-family: sans-serif;\n  font-size: 16px;\n  background-color: #f7f7f7;\n}\n\nbutton {\n  padding: 8px 25px;\n  font-size: 16px;\n  background: none;\n  border: 3px solid;\n  cursor: pointer;\n  border-radius: 6px;\n}\n\nbutton:focus {\n  outline: none;\n}\n\n#root {\n  max-width: 750px;\n  margin: auto;\n}\n\n.demo-container {\n  padding: 50px 0;\n}\n\n.demo-container h1 {\n  text-align: center;\n}\n\n.demo-container + .demo-container {\n  border-top: 1px dashed #b7b7b7;\n}\n\n.demo {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.hljs {\n  padding: 20px;\n  border: 1px solid #ededed;\n  background: #fff;\n}\n\n.spinner {\n  display: inline-block;\n  width: 17px;\n  height: 17px;\n  position: relative;\n  vertical-align: bottom;\n  margin-right: 5px;\n}\n\n.double-bounce1, .double-bounce2 {\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  background-color: #999;\n  opacity: 0.6;\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  -webkit-animation: sk-bounce 1.0s infinite ease-in-out;\n  animation: sk-bounce 1.0s infinite ease-in-out;\n}\n\n.double-bounce2 {\n  -webkit-animation-delay: -0.5s;\n  animation-delay: -0.5s;\n}\n\n@-webkit-keyframes sk-bounce {\n  0%, 100% { -webkit-transform: scale(0.0); }\n  50% { -webkit-transform: scale(1.0); }\n}\n\n@keyframes sk-bounce {\n  0%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n\n", ""]);
+	exports.push([module.id, "// CSS for DEMO page\n\n*, *::before, *::after {\n  box-sizing: border-box;\n}\n\nhtml, body {\n  font-family: sans-serif;\n  font-size: 16px;\n  background-color: #f7f7f7;\n  padding-bottom: 100px;\n}\n\nbutton {\n  padding: 8px 25px;\n  font-size: 16px;\n  background: none;\n  border: 3px solid;\n  cursor: pointer;\n  border-radius: 6px;\n}\n\nbutton:focus {\n  outline: none;\n}\n\n#root {\n  max-width: 750px;\n  margin: auto;\n}\n\n.demo-container {\n  padding: 30px 0;\n}\n\n.demo-container h1 {\n  text-align: center;\n}\n\n.demo-container + .demo-container {\n  border-top: 1px dashed #b7b7b7;\n}\n\n.demo {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.hljs {\n  padding: 20px;\n  border: 1px solid #ededed;\n  background: #fff;\n}\n\n.spinner {\n  display: inline-block;\n  width: 17px;\n  height: 17px;\n  position: relative;\n  vertical-align: bottom;\n  margin-right: 5px;\n}\n\n.double-bounce1, .double-bounce2 {\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  background-color: #999;\n  opacity: 0.6;\n  position: absolute;\n  top: 0;\n  left: 0;\n\n  -webkit-animation: sk-bounce 1.0s infinite ease-in-out;\n  animation: sk-bounce 1.0s infinite ease-in-out;\n}\n\n.double-bounce2 {\n  -webkit-animation-delay: -0.5s;\n  animation-delay: -0.5s;\n}\n\n@-webkit-keyframes sk-bounce {\n  0%, 100% { -webkit-transform: scale(0.0); }\n  50% { -webkit-transform: scale(1.0); }\n}\n\n@keyframes sk-bounce {\n  0%, 100% {\n    transform: scale(0.0);\n    -webkit-transform: scale(0.0);\n  } 50% {\n    transform: scale(1.0);\n    -webkit-transform: scale(1.0);\n  }\n}\n\n", ""]);
 
 	// exports
 
