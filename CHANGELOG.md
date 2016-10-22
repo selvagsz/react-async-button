@@ -1,7 +1,8 @@
 
 ## 0.0.5
 
-- Render children as a function giving more control to the user
+- Render function as children giving more control to the user
+- Added Demo at https://selvagsz.github.io/react-async-button/
 
 
 ## 0.0.1
