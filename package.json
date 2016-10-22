@@ -5,8 +5,9 @@
   "main": "lib/main.js",
   "scripts": {
     "clean": "rm -rf lib",
+    "example:build": "rm -f docs/*.dist.js && webpack",
     "build:commonjs": "babel src/ --out-dir lib/ --ignore __tests__,__mocks__",
-    "build": "npm run clean && npm run build:commonjs",
+    "build": "npm run clean && npm run build:commonjs && npm run example:build",
     "lint": "eslint src",
     "test": "npm run lint && jest",
     "prepublish": "npm test && npm run build"
@@ -43,7 +44,6 @@
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
-    "html-webpack-plugin": "^2.24.0",
     "jest-cli": "^13.1.0",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",

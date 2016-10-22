@@ -90,7 +90,7 @@ export default class AsyncButton extends React.Component {
             isPending,
             isFulfilled,
             isRejected,
-          }) : children ? children : buttonText
+          }) : children || buttonText
         }
       </button>
     )

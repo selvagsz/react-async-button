@@ -1,6 +1,4 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
 const EXAMPLES_DIR = `${__dirname}/docs`
 
 module.exports = {
@@ -17,7 +15,7 @@ module.exports = {
   },
   output: {
     path: `${EXAMPLES_DIR}/`,
-    filename: '[hash].dist.js'
+    filename: '[name].dist.js'
   },
 
   module: {
@@ -28,11 +26,5 @@ module.exports = {
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]
-  },
-
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: `${EXAMPLES_DIR}/index.html`
-    })
-  ]
+  }
 }

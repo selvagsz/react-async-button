@@ -21733,7 +21733,7 @@
 	          isPending: isPending,
 	          isFulfilled: isFulfilled,
 	          isRejected: isRejected
-	        }) : children ? children : buttonText
+	        }) : children || buttonText
 	      );
 	    }
 	  }]);
