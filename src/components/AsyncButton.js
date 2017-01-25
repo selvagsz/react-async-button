@@ -9,6 +9,10 @@ export default class AsyncButton extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.isUnmounted = true
+  }
+
   resetState() {
     this.setState({
       asyncState: null,
@@ -25,10 +29,16 @@ export default class AsyncButton extends React.Component {
       const returnFn = clickHandler(args)
       if (returnFn && typeof returnFn.then === 'function') {
         returnFn.then(() => {
+          if (this.isUnmounted) {
+            return
+          }
           this.setState({
             asyncState: 'fulfilled',
           })
         }).catch((error) => {
+          if (this.isUnmounted) {
+            return
+          }
           this.setState({
             asyncState: 'rejected',
           })
