@@ -1,3 +1,8 @@
+## Next Release
+
+
+## 0.0.6
+- [BUGFIX] Prevent calling setState on unmounted component - [#35](https://github.com/selvagsz/react-async-button/pull/35)
 
 ## 0.0.5
 
