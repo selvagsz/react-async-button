@@ -1,7 +1,7 @@
 /* global describe, it, expect */
 import React from 'react'
 import AsyncButton from '../AsyncButton.js'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import sinon from 'sinon'
 
 describe('main.js', () => {
@@ -27,5 +27,20 @@ describe('main.js', () => {
     const $button = wrapper.find('button')
     $button.simulate('click')
     expect(clickHandler.calledOnce).toBe(true)
+  })
+
+  it('should not call setState after unmount', () => {
+    let resolve
+    const promise = new Promise((_resolve) => { resolve = _resolve })
+    let onClick = () => promise
+    const wrapper = mount(<AsyncButton onClick={onClick} />)
+    wrapper.find('button').simulate('click')
+    wrapper.unmount()
+    wrapper.node.setState = sinon.spy()
+
+    resolve()
+    return Promise.resolve().then(() => {
+      expect(wrapper.node.setState.callCount).toBe(0);
+    })
   })
 })
