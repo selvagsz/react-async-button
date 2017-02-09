@@ -21643,6 +21643,11 @@
 	  }
 
 	  _createClass(AsyncButton, [{
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.isUnmounted = true;
+	    }
+	  }, {
 	    key: 'resetState',
 	    value: function resetState() {
 	      this.setState({
@@ -21667,10 +21672,16 @@
 	        var returnFn = clickHandler(args);
 	        if (returnFn && typeof returnFn.then === 'function') {
 	          returnFn.then(function () {
+	            if (_this2.isUnmounted) {
+	              return;
+	            }
 	            _this2.setState({
 	              asyncState: 'fulfilled'
 	            });
 	          }).catch(function (error) {
+	            if (_this2.isUnmounted) {
+	              return;
+	            }
 	            _this2.setState({
 	              asyncState: 'rejected'
 	            });
@@ -21745,7 +21756,7 @@
 
 
 	AsyncButton.propTypes = {
-	  children: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.element]),
+	  children: _react.PropTypes.oneOfType([_react.PropTypes.func, _react.PropTypes.node]),
 	  className: _react.PropTypes.string,
 	  loadingClass: _react.PropTypes.string,
 	  fulFilledClass: _react.PropTypes.string,

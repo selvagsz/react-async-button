@@ -110,7 +110,7 @@ export default class AsyncButton extends React.Component {
 AsyncButton.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.element,
+    PropTypes.node,
   ]),
   className: PropTypes.string,
   loadingClass: PropTypes.string,
