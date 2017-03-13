@@ -26,7 +26,7 @@ export default class AsyncButton extends React.Component {
         asyncState: 'pending',
       })
 
-      const returnFn = clickHandler(args)
+      const returnFn = clickHandler.apply(null, args)
       if (returnFn && typeof returnFn.then === 'function') {
         returnFn.then(() => {
           if (this.isUnmounted) {
@@ -91,7 +91,7 @@ export default class AsyncButton extends React.Component {
         {...attributes}
         className={btnClasses}
         disabled={isDisabled}
-        onClick={() => this.handleClick()}
+        onClick={(event) => this.handleClick(event)}
       >
         {
           typeof children === 'function' ?
