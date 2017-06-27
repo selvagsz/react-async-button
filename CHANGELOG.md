@@ -1,5 +1,9 @@
 ## Next Release
 
+## 0.1.0
+- [PATCH] Removes the third party dep `classnames`
+- [PATCH] Adds Prettier formatting
+
 ## 0.0.8
 - [BUGFIX] Allow the callback to receive event as a parameter - [#37](https://github.com/selvagsz/react-async-button/pull/37)
 
