@@ -1,4 +1,6 @@
 const path = require('path')
+const webpack = require('webpack')
+
 const EXAMPLES_DIR = `${__dirname}/docs`
 
 module.exports = {
@@ -26,5 +28,22 @@ module.exports = {
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]
-  }
+  },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+      output: {
+        comments: false,
+      },
+    }),
+  ],
+
 }
