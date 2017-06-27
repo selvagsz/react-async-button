@@ -1,51 +1,49 @@
-import React, { PropTypes } from 'react'
-import classNames from 'classnames'
+import React, { PropTypes } from 'react';
 
 export default class AsyncButton extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      asyncState: null,
-    }
-  }
+  state = {
+    asyncState: null,
+  };
 
   componentWillUnmount() {
-    this.isUnmounted = true
+    this.isUnmounted = true;
   }
 
   resetState() {
     this.setState({
       asyncState: null,
-    })
+    });
   }
 
   handleClick(...args) {
-    const clickHandler = this.props.onClick
+    const clickHandler = this.props.onClick;
     if (typeof clickHandler === 'function') {
       this.setState({
         asyncState: 'pending',
-      })
+      });
 
-      const returnFn = clickHandler.apply(null, args)
+      const returnFn = clickHandler.apply(null, args);
       if (returnFn && typeof returnFn.then === 'function') {
-        returnFn.then(() => {
-          if (this.isUnmounted) {
-            return
-          }
-          this.setState({
-            asyncState: 'fulfilled',
+        returnFn
+          .then(() => {
+            if (this.isUnmounted) {
+              return;
+            }
+            this.setState({
+              asyncState: 'fulfilled',
+            });
           })
-        }).catch((error) => {
-          if (this.isUnmounted) {
-            return
-          }
-          this.setState({
-            asyncState: 'rejected',
-          })
-          throw error
-        })
+          .catch(error => {
+            if (this.isUnmounted) {
+              return;
+            }
+            this.setState({
+              asyncState: 'rejected',
+            });
+            throw error;
+          });
       } else {
-        this.resetState()
+        this.resetState();
       }
     }
   }
@@ -57,61 +55,52 @@ export default class AsyncButton extends React.Component {
       pendingText,
       fulFilledText,
       rejectedText,
-      className,
+      className = '',
       loadingClass,
       fulFilledClass,
       rejectedClass,
       disabled,
-      ...attributes,
-    } = this.props
+      ...attributes
+    } = this.props;
 
-    const { asyncState } = this.state
-    const isPending = asyncState === 'pending'
-    const isFulfilled = asyncState === 'fulfilled'
-    const isRejected = asyncState === 'rejected'
-    const isDisabled = disabled || isPending
-    const btnClasses = classNames(className, {
-      [loadingClass]: isPending,
-      [fulFilledClass]: isFulfilled,
-      [rejectedClass]: isRejected,
-    })
-    let buttonText
+    const { asyncState } = this.state;
+    const isPending = asyncState === 'pending';
+    const isFulfilled = asyncState === 'fulfilled';
+    const isRejected = asyncState === 'rejected';
+    const isDisabled = disabled || isPending;
+    let buttonText;
 
     if (isPending) {
-      buttonText = pendingText
+      buttonText = pendingText;
     } else if (isFulfilled) {
-      buttonText = fulFilledText
+      buttonText = fulFilledText;
     } else if (isRejected) {
-      buttonText = rejectedText
+      buttonText = rejectedText;
     }
-    buttonText = buttonText || text
+    buttonText = buttonText || text;
 
     return (
       <button
         {...attributes}
-        className={btnClasses}
+        className={`${className} ${isPending ? loadingClass : ''} ${isFulfilled ? fulFilledClass : ''} ${isRejected ? rejectedClass : ''}`}
         disabled={isDisabled}
-        onClick={(event) => this.handleClick(event)}
+        onClick={event => this.handleClick(event)}
       >
-        {
-          typeof children === 'function' ?
-          children({
-            buttonText,
-            isPending,
-            isFulfilled,
-            isRejected,
-          }) : children || buttonText
-        }
+        {typeof children === 'function'
+          ? children({
+              buttonText,
+              isPending,
+              isFulfilled,
+              isRejected,
+            })
+          : children || buttonText}
       </button>
-    )
+    );
   }
 }
 
 AsyncButton.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.node,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   className: PropTypes.string,
   loadingClass: PropTypes.string,
   fulFilledClass: PropTypes.string,
@@ -122,10 +111,10 @@ AsyncButton.propTypes = {
   fulFilledText: PropTypes.string,
   rejectedText: PropTypes.string,
   onClick: PropTypes.func,
-}
+};
 
 AsyncButton.defaultProps = {
   loadingClass: 'AsyncButton--loading',
   fulFilledClass: 'AsyncButton--fulfilled',
   rejectedClass: 'AsyncButton--rejected',
-}
+};

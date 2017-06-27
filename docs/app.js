@@ -1,21 +1,19 @@
-import React, { Component } from 'react'
-import { render } from 'react-dom'
-import AsyncButton from 'components/AsyncButton'
-import Highlight from 'react-highlight'
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import AsyncButton from 'components/AsyncButton';
+import Highlight from 'react-highlight';
 
-import 'highlight.js/styles/github.css'
-import './app.css'
+import 'highlight.js/styles/github.css';
+import './app.css';
 
-const basicDemoSnippet =
-`<AsyncButton
+const basicDemoSnippet = `<AsyncButton
   text='Save'
   pendingText='Saving...'
   fulFilledText='Saved'
   onClick={this.doSomeAsyncStuff}
-/>`
+/>`;
 
-const blockFormSnippet =
-`<AsyncButton
+const blockFormSnippet = `<AsyncButton
   text='Save'
   pendingText='Saving...'
   fulFilledText='Saved'
@@ -28,25 +26,25 @@ const blockFormSnippet =
       </span>
     )
   }
-</AsyncButton>`
+</AsyncButton>`;
 
 const Spinner = () => (
-  <div className='spinner'>
-    <div className='double-bounce1'></div>
-    <div className='double-bounce2'></div>
+  <div className="spinner">
+    <div className="double-bounce1" />
+    <div className="double-bounce2" />
   </div>
-)
+);
 
 export default class AsyncButtonDemo extends Component {
   constructor() {
-    super()
-    this.doSomeAsyncStuff = ::this.doSomeAsyncStuff
+    super();
+    this.doSomeAsyncStuff = ::this.doSomeAsyncStuff;
   }
 
   doSomeAsyncStuff() {
     return new Promise((resolve, reject) => {
-      setTimeout(resolve, 1000)
-    })
+      setTimeout(resolve, 1000);
+    });
   }
 
   render() {
@@ -56,13 +54,13 @@ export default class AsyncButtonDemo extends Component {
           <h1>Basic Demo</h1>
           <div className="demo">
             <AsyncButton
-              text='Save'
-              pendingText='Saving...'
-              fulFilledText='Saved'
+              text="Save"
+              pendingText="Saving..."
+              fulFilledText="Saved"
               onClick={this.doSomeAsyncStuff}
             />
 
-            <Highlight className='jsx'>
+            <Highlight className="jsx">
               {basicDemoSnippet}
             </Highlight>
           </div>
@@ -72,31 +70,27 @@ export default class AsyncButtonDemo extends Component {
           <h1>Block Form</h1>
           <div className="demo">
             <AsyncButton
-              text='Save'
-              pendingText='Saving...'
-              fulFilledText='Saved'
-              onClick={this.doSomeAsyncStuff}>
-              {
-                ({ buttonText, isPending }) => (
-                  <span>
-                    { isPending && <Spinner />}
-                    <span>{buttonText}</span>
-                  </span>
-                )
-              }
+              text="Save"
+              pendingText="Saving..."
+              fulFilledText="Saved"
+              onClick={this.doSomeAsyncStuff}
+            >
+              {({ buttonText, isPending }) => (
+                <span>
+                  {isPending && <Spinner />}
+                  <span>{buttonText}</span>
+                </span>
+              )}
             </AsyncButton>
 
-            <Highlight className='jsx'>
+            <Highlight className="jsx">
               {blockFormSnippet}
             </Highlight>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-render(
-  <AsyncButtonDemo />,
-  document.getElementById('root')
-)
+render(<AsyncButtonDemo />, document.getElementById('root'));

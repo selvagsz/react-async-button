@@ -22,7 +22,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel'
+        loader: 'babel',
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]
