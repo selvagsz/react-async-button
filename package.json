@@ -10,11 +10,17 @@
     "build": "npm run clean && npm run build:commonjs && npm run example:build",
     "test": "jest",
     "prepublish": "npm test && npm run build",
-    "pretty-lint": "prettier --single-quote --trailing-comma es5 --write && git add"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.js": "pretty-lint",
-    "docs/app.js": "pretty-lint"
+    "src/**/*.js": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "git add"
+    ],
+    "docs/app.js": [
+      "prettier --single-quote --trailing-comma es5 --write",
+      "git add"
+    ]
   },
   "files": [
     "lib"
