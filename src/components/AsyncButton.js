@@ -1,5 +1,22 @@
 import React, { PropTypes } from 'react';
 
+function classNames(...klasses) {
+  return klasses
+    .reduce((prev, curr) => {
+      if (typeof curr === 'string' && curr) {
+        prev.push(curr);
+      } else if (typeof curr === 'object') {
+        Object.keys(curr).map(key => {
+          if (curr[key]) {
+            prev.push(key);
+          }
+        });
+      }
+      return prev;
+    }, [])
+    .join(' ');
+}
+
 export default class AsyncButton extends React.Component {
   state = {
     asyncState: null,
@@ -82,7 +99,11 @@ export default class AsyncButton extends React.Component {
     return (
       <button
         {...attributes}
-        className={`${className} ${isPending ? loadingClass : ''} ${isFulfilled ? fulFilledClass : ''} ${isRejected ? rejectedClass : ''}`}
+        className={classNames(className, {
+          [loadingClass]: isPending,
+          [fulFilledClass]: isFulfilled,
+          [rejectedClass]: isRejected,
+        })}
         disabled={isDisabled}
         onClick={event => this.handleClick(event)}
       >
