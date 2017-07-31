@@ -1,5 +1,9 @@
 ## Next Release
 
+## 0.2.0
+- [PATCH] Fixes PropTypes deprecation warning
+- [TESTS] Increased code coverage
+
 ## 0.1.0
 - [PATCH] Removes the third party dep `classnames`
 - [PATCH] Adds Prettier formatting
