@@ -10,7 +10,8 @@
     "build": "npm run clean && npm run build:commonjs && npm run example:build",
     "test": "jest",
     "prepublish": "npm test && npm run build",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -46,6 +47,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-preset-stage-1": "^6.5.0",
+    "coveralls": "^2.13.1",
     "css-loader": "^0.25.0",
     "enzyme": "^2.3.0",
     "husky": "^0.14.1",
@@ -70,6 +72,11 @@
   "jest": {
     "automock": false,
     "verbose": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "text"
+    ],
     "roots": [
       "src"
     ],

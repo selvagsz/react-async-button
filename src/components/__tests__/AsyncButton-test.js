@@ -53,6 +53,25 @@ describe('<AsyncButton />', () => {
     });
   });
 
+  it('should not call setState after unmount on reject', () => {
+    let reject;
+    const promise = new Promise((_resolve, _reject) => {
+      reject = _reject;
+    });
+    let onClick = () => promise;
+    const Component = <AsyncButton onClick={onClick} />;
+    const wrapper = mount(Component);
+    wrapper.find('button').simulate('click');
+    wrapper.unmount();
+    wrapper.node.setState = sinon.spy();
+    reject();
+    return Promise.resolve().then(() => {
+      promise.catch(() => {
+        expect(wrapper.node.setState.callCount).toBe(0);
+      });
+    });
+  });
+
   it('should set the fulFilledClass & fulFilledText on promise resolve', () => {
     let resolve;
     const promise = new Promise(_resolve => {
@@ -92,7 +111,6 @@ describe('<AsyncButton />', () => {
   it('should set the rejectedClass & rejectedText on promise reject', () => {
     let reject;
     const promise = new Promise((_resolve, _reject) => {
-      console.log(_resolve, _reject);
       reject = _reject;
     });
     let onClick = () => promise;
@@ -128,6 +146,49 @@ describe('<AsyncButton />', () => {
         expect($button.hasClass('error')).toBe(true);
         expect($button.prop('disabled')).toBe(false);
       });
+    });
+  });
+});
+
+describe('AsyncButton :- Block form', () => {
+  it('should set the fulFilledClass & fulFilledText on promise resolve', () => {
+    let resolve;
+    const promise = new Promise(_resolve => {
+      resolve = _resolve;
+    });
+    let onClick = () => promise;
+
+    const wrapper = mount(
+      <AsyncButton
+        text="Save"
+        pendingText="Saving..."
+        loadingClass="loading"
+        fulFilledClass="success"
+        fulFilledText="Saved!"
+        onClick={onClick}
+      >
+        {({ buttonText, isPending, isFulfilled, isRejected }) =>
+          <span>
+            {buttonText}
+          </span>}
+      </AsyncButton>
+    );
+    const $button = wrapper.find('button');
+    expect($button.text()).toBe('Save');
+    expect($button.hasClass('loading')).toBe(false);
+    expect($button.prop('disabled')).toBe(false);
+
+    $button.simulate('click');
+    expect($button.text()).toBe('Saving...');
+    expect($button.hasClass('loading')).toBe(true);
+    expect($button.prop('disabled')).toBe(true);
+
+    resolve();
+    return Promise.resolve().then(() => {
+      expect($button.text()).toBe('Saved!');
+      expect($button.hasClass('loading')).toBe(false);
+      expect($button.hasClass('success')).toBe(true);
+      expect($button.prop('disabled')).toBe(false);
     });
   });
 });

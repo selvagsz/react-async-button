@@ -1,22 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-function classNames(...klasses) {
-  return klasses
-    .reduce((prev, curr) => {
-      if (typeof curr === 'string' && curr) {
-        prev.push(curr);
-      } else if (typeof curr === 'object') {
-        Object.keys(curr).map(key => {
-          if (curr[key]) {
-            prev.push(key);
-          }
-        });
-      }
-      return prev;
-    }, [])
-    .join(' ');
-}
+import { classNames } from '../utils';
 
 export default class AsyncButton extends React.Component {
   state = {
