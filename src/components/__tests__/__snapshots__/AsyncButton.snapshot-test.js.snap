@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AsyncButton /> Snapshots should delegate text, className & disabled props 1`] = `
+<button
+  className="btn btn-default"
+  disabled={true}
+  onClick={[Function]}
+>
+  Save
+</button>
+`;
+
+exports[`<AsyncButton /> Snapshots should have sane defaults 1`] = `
+<button
+  className=""
+  disabled={false}
+  onClick={[Function]}
+/>
+`;
+
+exports[`Block form :- <AsyncButton></AsyncButton> should delegate text, className & disabled props 1`] = `
+<button
+  className="btn btn-default"
+  disabled={true}
+  onClick={[Function]}
+>
+  <span>
+    Save
+  </span>
+</button>
+`;
+
+exports[`Block form :- <AsyncButton></AsyncButton> should have sane defaults 1`] = `
+<button
+  className=""
+  disabled={false}
+  onClick={[Function]}
+>
+  Save
+</button>
+`;

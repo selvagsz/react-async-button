@@ -10,7 +10,8 @@
     "build": "npm run clean && npm run build:commonjs && npm run example:build",
     "test": "jest",
     "prepublish": "npm test && npm run build",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -39,17 +40,19 @@
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.9.1",
-    "babel-jest": "^13.0.0",
+    "babel-jest": "^20.0.3",
     "babel-loader": "^6.2.5",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-preset-stage-1": "^6.5.0",
+    "coveralls": "^2.13.1",
     "css-loader": "^0.25.0",
     "enzyme": "^2.3.0",
     "husky": "^0.14.1",
-    "jest-cli": "^13.1.0",
+    "jest": "^20.0.4",
+    "jest-cli": "^20.0.4",
     "lint-staged": "^4.0.0",
     "prettier": "^1.4.4",
     "react": "^15.1.0",
@@ -57,15 +60,24 @@
     "react-dom": "^15.1.0",
     "react-fa": "^4.1.2",
     "react-highlight": "^0.9.0",
+    "react-test-renderer": "^15.6.1",
     "sinon": "^1.17.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  },
   "jest": {
     "automock": false,
-    "testPathDirs": [
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "text"
+    ],
+    "roots": [
       "src"
     ],
     "unmockedModulePathPatterns": [

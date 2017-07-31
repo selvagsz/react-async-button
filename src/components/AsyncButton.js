@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { classNames } from '../utils';
 
 export default class AsyncButton extends React.Component {
   state = {
@@ -82,7 +84,11 @@ export default class AsyncButton extends React.Component {
     return (
       <button
         {...attributes}
-        className={`${className} ${isPending ? loadingClass : ''} ${isFulfilled ? fulFilledClass : ''} ${isRejected ? rejectedClass : ''}`}
+        className={classNames(className, {
+          [loadingClass]: isPending,
+          [fulFilledClass]: isFulfilled,
+          [rejectedClass]: isRejected,
+        })}
         disabled={isDisabled}
         onClick={event => this.handleClick(event)}
       >

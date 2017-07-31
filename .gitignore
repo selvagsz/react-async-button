@@ -1,5 +1,6 @@
 # output
 lib/
+coverage/
 
 # dependencies
 /node_modules
