@@ -4,7 +4,7 @@ React button component for handling async actions. Inspired from [ember-async-bu
 
 [![npm version](https://badge.fury.io/js/react-async-button.svg)](https://www.npmjs.com/package/react-async-button)
 [![Build Status](https://travis-ci.org/selvagsz/react-async-button.svg?branch=master)](https://travis-ci.org/selvagsz/react-async-button)
-[![Coverage Status](https://coveralls.io/repos/github/selvagsz/react-async-button/badge.svg?branch=master)](https://coveralls.io/github/selvagsz/react-async-button)
+[![Coverage Status](https://coveralls.io/repos/github/selvagsz/react-async-button/badge.svg?branch=master)](https://coveralls.io/github/selvagsz/react-async-button?branch=master)
 
 ## Installation
 
